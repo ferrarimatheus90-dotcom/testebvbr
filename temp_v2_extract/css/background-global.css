@@ -1,0 +1,18 @@
+/* Global Background Effect */
+.global-bg-effect {
+    position: fixed;
+    /* Fixed to cover screen even when scrolling */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    /* Behind everything */
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    background: transparent;
+}
+
+.global-bg-effect canvas {
+    display: block;
+}

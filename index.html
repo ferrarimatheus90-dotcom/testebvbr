@@ -18,6 +18,8 @@
     <!-- Styles -->
     <!-- Styles -->
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/form.css">
+
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 </head>
@@ -26,13 +28,7 @@
     <header class="header">
         <div class="container header-content">
             <a href="#" class="logo">
-                <svg width="50" height="30" viewBox="0 0 50 30" fill="none" xmlns="http://www.w3.org/2000/svg"
-                    class="logo-icon">
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                        d="M5 0L0 5V30H18C23 30 25 27 25 23C25 20 23 18 20 17C23 16 25 13 25 9C25 4 22 0 17 0H5ZM8 22V26H16C17.5 26 18 25.5 18 24C18 22.5 17.5 22 16 22H8ZM8 8V14H16C17.5 14 18 13.5 18 12C18 10.5 17.5 10 16 10H8Z"
-                        fill="white" />
-                    <path d="M26 0H33L38 18L43 0H50L41 30H35L26 0Z" fill="white" />
-                </svg>
+
                 <span>BRUNO VIANA</span>
             </a>
             <nav class="nav-menu">
@@ -48,14 +44,16 @@
         <section class="hero" id="hero">
             <div class="container hero-content">
                 <span class="eyebrow">Otimização de Vendas e Marketing</span>
-                <h1 class="headline">Seu marketing traz leads. <br><span class="highlight">Nós fazemos eles
-                        comprarem.</span></h1>
+                <h1 class="headline">Construir crescimento com <br><span class="highlight">Marketing que vende.</span>
+                </h1>
                 <p class="subheadline">Consultoria estratégica focada em aumentar suas taxas de conversão e ROI através
                     de processos de vendas validados e ferramentas de otimização.</p>
                 <a href="#protocol" class="btn-primary">Aumentar Minhas Conversões</a>
             </div>
             <div class="hero-bg-effect"></div>
         </section>
+
+
 
         <!-- Section 02: O Manifesto -->
         <section class="manifesto">
@@ -173,37 +171,102 @@
             </div>
         </section>
 
-        <!-- Section 04: O Protocolo (CTA/Agent) -->
-        <section class="protocol" id="protocol">
+        <!-- Section 04: Protocolo / Contato -->
+        <section class="contact-form-section" id="protocol">
             <div class="container">
-                <div class="terminal-interface">
-                    <div class="terminal-header">
-                        <span class="dot red"></span>
-                        <span class="dot yellow"></span>
-                        <span class="dot green"></span>
-                        <span class="terminal-title">Agente Bruninho (Online)</span>
-                        <div class="network-status">
-                            <span class="status-dot"></span>
-                            <span class="status-text">Rede Neural: Ativa</span>
-                        </div>
+                <div class="form-container">
+                    <div class="form-header">
+                        <h2>Agendar Consultoria</h2>
+                        <p>Preencha seus dados para receber nosso contato.</p>
                     </div>
-                    <div class="terminal-body" id="chat-interface">
-                        <div class="message system">
-                            > Agente Bruninho inicializado...
-                            <br>> Conectado à base de conhecimento de vendas.
-                            <br>> Olá! Qual o seu nome?
+                    <form id="interest-form">
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" name="name" class="form-input" required placeholder="Seu nome">
                         </div>
-                        <!-- Chat input will be injected here via JS -->
-                        <div class="input-area">
-                            <span class="prompt">></span>
-                            <input type="text" id="userInput" placeholder="Digite aqui..." autocomplete="off">
-                            <button id="sendBtn" class="btn-send">Enter</button>
+                        <div class="form-group">
+                            <label for="contact">Email ou WhatsApp</label>
+                            <input type="text" id="contact" name="contact" class="form-input" required
+                                placeholder="ex: (11) 99999-9999">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="company">Nome da Empresa</label>
+                            <input type="text" id="company" name="company" class="form-input" required
+                                placeholder="Sua empresa">
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Interesse Principal</label>
+                            <select id="interest" name="interest" class="form-input">
+                                <option value="consultoria">Consultoria Estratégica</option>
+                                <option value="automacao">Automação & IA</option>
+                                <option value="treinamento">Treinamento de Equipe</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="other-interest-group" style="display: none;">
+                            <label for="other-interest">Qual seria?</label>
+                            <input type="text" id="other-interest" name="other_interest" class="form-input"
+                                placeholder="Descreva seu interesse">
+                        </div>
+                        <button type="submit" id="form-submit-btn" class="btn-submit">
+                            Solicitar Contato
+                        </button>
+                        <div id="form-message" class="form-message"></div>
+                    </form>
                 </div>
             </div>
         </section>
+
+
+
+
+        <!-- Styles for Chat -->
+        <link rel="stylesheet" href="css/chat-floating.css">
+
     </main>
+
+    <!-- Floating Chat Widget Container -->
+    <div id="bruno-chat-widget">
+        <!-- Chat Window (Hidden by default) -->
+        <div id="bruno-chat-window" class="chat-window">
+            <div class="chat-header">
+                <div class="header-info">
+                    <div class="avatar-circle">
+                        <span class="avatar-emoji">🤖</span>
+                    </div>
+                    <div class="header-text">
+                        <span class="bot-name">Agente de IA</span>
+                        <span class="bot-status">Online agora</span>
+                    </div>
+                </div>
+                <button id="close-chat-btn" class="close-btn">&times;</button>
+            </div>
+
+            <div class="chat-body" id="chat-body">
+                <div class="message system">
+                    Olá! Sou a IA do Bruno Viana.
+                    <br>Estou aqui para tirar suas dúvidas sobre <strong>Consultoria</strong>, <strong>Mentoria</strong>
+                    e <strong>IA</strong>.
+                    <br>Como posso ajudar hoje?
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" id="userInput" placeholder="Digite sua resposta..." autocomplete="off">
+                <button id="sendBtn" class="btn-send">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Floating Toggle Button -->
+        <button id="bruno-chat-toggle" class="chat-toggle-btn">
+            <span class="toggle-icon">💬</span>
+            <span class="toggle-text">Dúvidas?</span>
+        </button>
+    </div>
 
     <footer class="footer">
         <div class="container">
@@ -214,6 +277,8 @@
     <div id="particles-js" class="global-bg-effect"></div>
     <script src="js/particles.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/chat-floating.js"></script>
+    <script src="js/form.js"></script>
     <!-- <script src="js/integrations.js"></script> Integrated into app.js -->
 </body>
 

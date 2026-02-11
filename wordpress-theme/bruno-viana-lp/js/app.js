@@ -1,3 +1,5 @@
+// Integration Service removed - now handled by plugin
+
 // Animations (Scroll Reveal)
 const observerOptions = { threshold: 0.1 };
 const observer = new IntersectionObserver((entries) => {

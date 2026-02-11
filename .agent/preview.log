@@ -1,0 +1,127 @@
+
+> dev
+> python -m http.server 8000
+
+::1 - - [11/Feb/2026 16:56:57] "GET /css/main.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 16:56:57] "GET /js/particles.js HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 16:56:57] "GET /assets/bruno-viana.jpg?v=2 HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/variables.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/reset.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/layout.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/sections.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/components.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/animations.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/animations-icons.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /css/background-global.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 16:56:58] "GET /js/app.js HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 16:56:58] code 404, message File not found
+::1 - - [11/Feb/2026 16:56:58] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 16:57:14] code 404, message File not found
+::1 - - [11/Feb/2026 16:57:14] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:02:52] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:02:52] "GET /css/form.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:02:52] "GET /css/chat-floating.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:02:53] "GET /js/chat-floating.js HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:02:53] "GET /js/form.js HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:05:16] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:05:16] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:05:17] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:09:14] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:09:14] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:09:14] "GET /css/chat-floating.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:09:15] "GET /js/chat-floating.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:09:15] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:09:15] code 404, message File not found
+::1 - - [11/Feb/2026 17:09:15] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:11:03] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:11:58] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:12:52] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:12:52] "GET /css/form.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:12:53] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:18:55] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:18:55] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:18:55] "GET /css/chat-floating.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:18:56] "GET /js/chat-floating.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:18:56] "GET /js/form.js HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:23:29] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:23:29] "GET /css/authority.css HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:23:29] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:23:29] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:29] "GET /assets/image_13.58.58.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:29] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:29] "GET /assets/image_13.58.28_3.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:29] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:29] "GET /assets/image_13.58.58.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:29] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:29] "GET /assets/image_13.58.28_3.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28_1.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28_4.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28_1.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:23:30] code 404, message File not found
+::1 - - [11/Feb/2026 17:23:30] "GET /assets/image_13.58.28_4.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:38] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:34:39] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:34:39] "GET /css/authority.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.58.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28_3.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.58.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28_3.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28_1.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28_4.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] "GET /css/chat-floating.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:34:39] "GET /js/chat-floating.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:34:39] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:39] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:39] "GET /assets/image_13.58.28_1.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:34:40] code 404, message File not found
+::1 - - [11/Feb/2026 17:34:40] "GET /assets/image_13.58.28_4.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:00] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:40:01] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:40:01] "GET /css/authority.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:40:01] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:01] "GET /assets/image_13.58.58.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:01] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:01] "GET /assets/image_13.58.28_3.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:01] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:01] "GET /assets/image_13.58.28.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:01] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:01] "GET /assets/image_13.58.28_1.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:01] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:01] "GET /assets/image_13.58.28_4.jpeg HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:40:01] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 17:40:02] code 404, message File not found
+::1 - - [11/Feb/2026 17:40:02] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 17:41:29] "GET / HTTP/1.1" 200 -
+::1 - - [11/Feb/2026 17:41:31] code 404, message File not found
+::1 - - [11/Feb/2026 17:41:31] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 18:49:02] "GET / HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 18:49:02] "GET /css/form.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 18:49:02] "GET /css/chat-floating.css HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 18:49:03] "GET /js/chat-floating.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 18:49:03] "GET /js/form.js HTTP/1.1" 304 -
+::1 - - [11/Feb/2026 18:49:04] code 404, message File not found
+::1 - - [11/Feb/2026 18:49:04] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 18:51:43] code 404, message File not found
+::1 - - [11/Feb/2026 18:51:43] "GET /favicon.ico HTTP/1.1" 404 -
+::1 - - [11/Feb/2026 18:53:15] "GET / HTTP/1.1" 200 -
+Deseja finalizar o arquivo em lotes (S/N)? Serving HTTP on :: port 8000 (http://[::]:8000/) ...
+
+Keyboard interrupt received, exiting.
