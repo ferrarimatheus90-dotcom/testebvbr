@@ -45,10 +45,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = {
             name: formData.get('name'),
-            contact: formData.get('contact'),
+            email: formData.get('email'),
+            whatsapp: formData.get('whatsapp'),
             company: formData.get('company'),
+            challenges: formData.get('challenges'),
             interest: interestVal,
-            source: 'static_form' // To distinguish from chat
+            source: 'static_form_v5'
         };
 
         try {
