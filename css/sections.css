@@ -1,0 +1,170 @@
+/* About Section */
+.about {
+    padding: var(--spacing-xl) 0;
+    min-height: 80vh;
+    /* Make it substantial */
+    display: flex;
+    align-items: center;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-xl);
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.about-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.about-content p {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    font-size: 1.1rem;
+}
+
+.stats-list {
+    list-style: none;
+    margin-top: var(--spacing-lg);
+    display: flex;
+    gap: var(--spacing-lg);
+}
+
+.stats-list li {
+    border-left: 2px solid var(--text-primary);
+    padding-left: var(--spacing-sm);
+}
+
+.stats-list strong {
+    display: block;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+}
+
+.about-visual {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-frame {
+    width: 300px;
+    height: 400px;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    background: var(--surface-color);
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    /* Black & white, high contrast */
+    transition: filter 0.5s ease;
+}
+
+.profile-frame:hover .profile-img {
+    filter: grayscale(0%) contrast(1);
+    /* Color on hover */
+}
+
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--text-primary);
+    box-shadow: 0 0 10px var(--text-primary);
+    animation: scan 3s infinite linear;
+}
+
+@keyframes scan {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+
+/* Methodology Section */
+.methodology {
+    padding: var(--spacing-xl) 0;
+    background: var(--surface-color);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.section-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-lg);
+}
+
+@media (max-width: 768px) {
+    .steps-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.step-card {
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-color);
+    position: relative;
+}
+
+.step-number {
+    font-family: 'Courier New', monospace;
+    font-size: 3rem;
+    color: var(--accent-color);
+    /* Updated to accent blue */
+    opacity: 0.8;
+    /* Slight opacity for style */
+    position: absolute;
+    top: 0;
+    right: var(--spacing-sm);
+    font-weight: bold;
+    text-shadow: 0 0 10px var(--accent-glow);
+    /* Adding glow for consistency */
+}
+
+.step-card h3 {
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    font-family: var(--font-heading);
+}
+
+.step-card p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
