@@ -105,8 +105,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ]
     };
 
-
-
     function addMessage(text, sender = 'system') {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
@@ -139,13 +137,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (text && !isTyping) {
             addMessage(text, 'user');
             userInput.value = '';
-
             isTyping = true;
 
-            // Analyze and Respond
-            const response = getResponse(text);
-
             setTimeout(() => {
+                let response = "";
+
+                // STEP 0: Capture Name
+                if (step === 0) {
+                    // Simple name extraction logic
+                    // If user types "Meu nome é Matheus" -> Extract "Matheus"
+                    // If user types "Matheus" -> Extract "Matheus"
+                    let name = text;
+                    const nameMatch = text.match(/(?:chamo|sou|nome é|eu sou)\s+(\w+)/i);
+                    if (nameMatch && nameMatch[1]) {
+                        name = nameMatch[1];
+                    } else if (text.split(' ').length > 3) {
+                        // Fallback if sentence is long but no keyword match, take first word/name? 
+                        // For simplicity, let's assume if it's not a command, it's a name if step is 0
+                        name = text.split(' ')[0]; // Take first word as name if complex sentence
+                    }
+
+                    // Capitalize
+                    name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+                    userData.name = name;
+
+                    response = `Prazer, <strong>${name}</strong>! Sou a central de inteligência do Bruno Viana.<br><br>Como posso te ajudar a escalar suas vendas hoje?<br><br>Diga sobre: <strong>Consultoria</strong>, <strong>Mentoria</strong> ou <strong>IA</strong>.`;
+
+                    step = 1; // Advance to next step
+
+                } else {
+                    // STEP 1+: Standard FAQ
+                    response = getResponse(text);
+                }
+
                 addMessage(response, 'system');
                 isTyping = false;
             }, 800);
@@ -154,10 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Greeting
     setTimeout(() => {
-        if (chatBody.children.length <= 1) {
-            // HTML has static welcome
+        // Check if we haven't interacted yet
+        if (step === 0 && chatBody.querySelectorAll('.message.user').length === 0) {
+            // Let's replace the default static message with the Name Question if it's the default one
+            const firstMsg = chatBody.querySelector('.message.system');
+            if (firstMsg && firstMsg.innerHTML.includes("Como posso ajudar")) {
+                firstMsg.innerHTML = "Olá! Sou a IA do Bruno Viana.<br>Para um atendimento personalizado, <strong>qual é o seu nome?</strong>";
+            }
         }
-    }, 1000);
+    }, 500);
 
     sendBtn.addEventListener('click', sendMessage);
 

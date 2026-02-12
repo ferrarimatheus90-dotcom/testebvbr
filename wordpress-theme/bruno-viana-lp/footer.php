@@ -28,9 +28,7 @@
         <div class="chat-body" id="chat-body">
             <div class="message system">
                 Olá! Sou a IA do Bruno Viana.
-                <br>Estou aqui para tirar suas dúvidas sobre <strong>Consultoria</strong>, <strong>Mentoria</strong>
-                e <strong>IA</strong>.
-                <br>Como posso ajudar hoje?
+                <br>Para um atendimento personalizado, <strong>qual é o seu nome?</strong>
             </div>
         </div>
 
