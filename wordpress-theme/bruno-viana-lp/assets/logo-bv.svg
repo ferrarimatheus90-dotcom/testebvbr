@@ -1,4 +1,0 @@
-<svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M10 10H50C70 10 70 30 50 30H30V40H60C80 40 80 60 60 60H10V10Z" fill="white"/>
-    <path d="M70 10L85 60H95L110 10H95L90 40L85 10H70Z" fill="white" transform="translate(-10, 0)"/>
-</svg>
