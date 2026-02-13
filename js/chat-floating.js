@@ -103,65 +103,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    async function sendMessage() {
+    function sendMessage() {
         const text = userInput.value.trim();
-        if (text && !isTyping) {
-            // 1. Show User Message
-            addMessage(text, 'user');
+        if (text) {
+            // Redirect to WhatsApp with the message
+            const phoneNumber = "5515991196556"; // Bruno Viana's number
+            const encodedMessage = encodeURIComponent(text);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+            // Open in new tab
+            window.open(whatsappUrl, '_blank');
+
+            // Clear input and added visual feedback
             userInput.value = '';
-
-            isTyping = true;
-            addTypingIndicator(); // Show "..."
-
-            // 2. Prepare Payload
-            // If we have a name, send it. If it's the first interaction, user likely sent their name.
-            let payload = {
-                message: text,
-                source: 'chat',
-                sessionId: userData.name || 'anonymous_' + Date.now() // Simple session tracking
-            };
-
-            // STEP 0: Capture Name locally (optional, helps context)
-            if (step === 0) {
-                let name = text;
-                // Simple text extraction for name
-                const nameMatch = text.match(/(?:chamo|sou|nome é|eu sou)\s+(\w+)/i);
-                if (nameMatch && nameMatch[1]) {
-                    name = nameMatch[1];
-                } else if (text.split(' ').length > 3) {
-                    name = text.split(' ')[0];
-                }
-                name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-                userData.name = name;
-                payload.name = name;
-                payload.message = `Meu nome é ${name}. ${text}`; // Contextualize for AI
-                step = 1;
-            }
-
-            // 3. Send to AI
-            const aiResponse = await integration.sendToN8n(payload);
-
-            removeTypingIndicator();
-            isTyping = false;
-
-            // 4. Show AI Response
-            if (aiResponse && aiResponse.output) {
-                // n8n Agents usually return { output: "text" }
-                addMessage(aiResponse.output, 'system');
-
-            } else if (aiResponse && typeof aiResponse === 'string') {
-                // Sometimes it returns raw string
-                addMessage(aiResponse, 'system');
-
-            } else if (aiResponse && aiResponse.text) {
-                // Or { text: "..." }
-                addMessage(aiResponse.text, 'system');
-
-            } else {
-                // Fallback if AI fails or format is weird
-                console.warn("AI Response format unknown:", aiResponse);
-                addMessage("Desculpe, tive um problema de conexão com a IA.", 'system');
-            }
+            addMessage(text, 'user');
+            setTimeout(() => {
+                addMessage("Redirecionando para o WhatsApp...", 'system');
+            }, 500);
         }
     }
 
