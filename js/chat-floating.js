@@ -27,40 +27,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Integration Service
     class IntegrationService {
         constructor() {
+            // Consolidated workflow (Lead Scoring + Chat)
             this.n8nWebhook = "https://agente-n8n.qy9sqv.easypanel.host/webhook/lp-bruno-viana";
         }
 
-        async sendToN8n(data, maxRetries = 3) {
+        async sendToN8n(data) {
             console.log("Sending data to n8n:", data);
-            let retries = 0;
 
-            while (retries < maxRetries) {
-                try {
-                    const response = await fetch(this.n8nWebhook, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(data)
-                    });
+            try {
+                const response = await fetch(this.n8nWebhook, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
 
-                    if (response.ok) {
-                        return true;
-                    } else {
-                        console.error(`Attempt ${retries + 1} failed: HTTP ${response.status}`);
-                    }
-                } catch (error) {
-                    console.error(`Attempt ${retries + 1} error:`, error);
+                if (response.ok) {
+                    const jsonResponse = await response.json();
+                    return jsonResponse; // Expecting { output: "AI response" } or similar from n8n Agent
+                } else {
+                    console.error(`HTTP Error: ${response.status}`);
+                    return null;
                 }
-
-                retries++;
-                if (retries < maxRetries) {
-                    const delay = Math.pow(2, retries) * 1000;
-                    console.log(`Retrying in ${delay}ms...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                }
+            } catch (error) {
+                console.error(`Connection Error:`, error);
+                return null;
             }
-            throw new Error('Falha ao enviar dados.');
         }
     }
 
@@ -70,109 +63,102 @@ document.addEventListener('DOMContentLoaded', () => {
     let userData = {};
     let step = 0;
 
-    // --- Knowledge Base ---
+    // --- Knowledge Base (Fallback & Instant Answers) ---
     const knowledgeBase = {
         default: "Posso te ajudar com dúvidas sobre <strong>Consultoria</strong>, <strong>Mentoria</strong>, <strong>Palestras</strong> ou <strong>Automação com IA</strong>. O que gostaria de saber?",
         keywords: [
-            {
-                terms: ['consultoria', 'consultor', 'diagnostico', 'auditoria'],
-                answer: "A <strong>Consultoria Estratégica</strong> é ideal para empresas que precisam reestruturar seu processo de vendas. Analisamos seu funil, identificamos gargalos e implementamos soluções para aumentar a conversão. <br><br>Gostaria de agendar um diagnóstico?"
-            },
-            {
-                terms: ['mentoria', 'mentor', 'acompanhamento'],
-                answer: "A <strong>Mentoria</strong> é focada em líderes e gestores. O Bruno acompanha você quinzenalmente para definir estratégias de crescimento e liderança comercial."
-            },
-            {
-                terms: ['palestra', 'speaker', 'evento'],
-                answer: "O Bruno Viana realiza palestras sobre <strong>Vendas, IA e Futuro do Marketing</strong>. Já esteve nos maiores palcos do Brasil. <br><br>Para contratar, preencha o formulário abaixo."
-            },
-            {
-                terms: ['preço', 'valor', 'custa', 'investimento', 'orcamento'],
-                answer: "Como cada projeto é único, o investimento varia conforme o escopo (Consultoria, Mentoria ou Treinamento). <br><br>Recomendamos agendar uma conversa rápida para entendermos sua necessidade."
-            },
-            {
-                terms: ['ia', 'inteligencia', 'artificial', 'automacao', 'bot'],
-                answer: "Utilizamos <strong>Inteligência Artificial</strong> para automatizar prospecção, qualificar leads e personalizar o atendimento em escala. É o futuro das vendas hoje."
-            },
-            {
-                terms: ['contato', 'falar', 'telefone', 'whatsapp', 'email'],
-                answer: "Você pode falar conosco preenchendo o formulário nesta página ou clicando no botão de WhatsApp (se disponível). Nossa equipe responderá em breve!"
-            },
-            {
-                terms: ['quem', 'bruno', 'historia'],
-                answer: "Bruno Viana tem 25 anos de experiência, unindo a bagagem clássica de vendas com o que há de mais moderno em IA. Já gerou mais de R$ 10M em vendas otimizadas."
-            }
+            // Keep some local keywords for instant reaction if desired, 
+            // OR remove them to let everything go to AI. 
+            // Let's keep "contact" details locally for speed, but let AI handle the rest.
         ]
     };
 
     function addMessage(text, sender = 'system') {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
-        msgDiv.innerHTML = text;
+        msgDiv.innerHTML = text; // Be careful with innerHTML in prod, but needed for bold tags here
         chatBody.appendChild(msgDiv);
         scrollToBottom();
+    }
+
+    function addTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('message', 'system', 'typing-indicator');
+        typingDiv.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+        typingDiv.id = 'typing-indicator';
+        chatBody.appendChild(typingDiv);
+        scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+        const typingDiv = document.getElementById('typing-indicator');
+        if (typingDiv) typingDiv.remove();
     }
 
     function scrollToBottom() {
         chatBody.scrollTop = chatBody.scrollHeight;
     }
 
-    function getResponse(input) {
-        const lowerInput = input.toLowerCase();
-
-        // Check for matches
-        for (const item of knowledgeBase.keywords) {
-            if (item.terms.some(term => lowerInput.includes(term))) {
-                return item.answer;
-            }
-        }
-
-        // Default response if no match
-        return "Desculpe, ainda estou aprendendo. Mas você pode falar sobre <strong>Consultoria</strong>, <strong>IA</strong> ou <strong>Preços</strong>.";
-    }
-
     // Event Listeners
-    function sendMessage() {
+    async function sendMessage() {
         const text = userInput.value.trim();
         if (text && !isTyping) {
+            // 1. Show User Message
             addMessage(text, 'user');
             userInput.value = '';
+
             isTyping = true;
+            addTypingIndicator(); // Show "..."
 
-            setTimeout(() => {
-                let response = "";
+            // 2. Prepare Payload
+            // If we have a name, send it. If it's the first interaction, user likely sent their name.
+            let payload = {
+                message: text,
+                source: 'chat',
+                sessionId: userData.name || 'anonymous_' + Date.now() // Simple session tracking
+            };
 
-                // STEP 0: Capture Name
-                if (step === 0) {
-                    // Simple name extraction logic
-                    // If user types "Meu nome é Matheus" -> Extract "Matheus"
-                    // If user types "Matheus" -> Extract "Matheus"
-                    let name = text;
-                    const nameMatch = text.match(/(?:chamo|sou|nome é|eu sou)\s+(\w+)/i);
-                    if (nameMatch && nameMatch[1]) {
-                        name = nameMatch[1];
-                    } else if (text.split(' ').length > 3) {
-                        // Fallback if sentence is long but no keyword match, take first word/name? 
-                        // For simplicity, let's assume if it's not a command, it's a name if step is 0
-                        name = text.split(' ')[0]; // Take first word as name if complex sentence
-                    }
-
-                    // Capitalize
-                    name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
-                    userData.name = name;
-
-                    response = `Prazer, <strong>${name}</strong>! Sou a central de inteligência do Bruno Viana.<br><br>Como posso te ajudar a escalar suas vendas hoje?<br><br>Diga sobre: <strong>Consultoria</strong>, <strong>Mentoria</strong> ou <strong>IA</strong>.`;
-
-                    step = 1; // Advance to next step
-
-                } else {
-                    // STEP 1+: Standard FAQ
-                    response = getResponse(text);
+            // STEP 0: Capture Name locally (optional, helps context)
+            if (step === 0) {
+                let name = text;
+                // Simple text extraction for name
+                const nameMatch = text.match(/(?:chamo|sou|nome é|eu sou)\s+(\w+)/i);
+                if (nameMatch && nameMatch[1]) {
+                    name = nameMatch[1];
+                } else if (text.split(' ').length > 3) {
+                    name = text.split(' ')[0];
                 }
+                name = name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+                userData.name = name;
+                payload.name = name;
+                payload.message = `Meu nome é ${name}. ${text}`; // Contextualize for AI
+                step = 1;
+            }
 
-                addMessage(response, 'system');
-                isTyping = false;
-            }, 800);
+            // 3. Send to AI
+            const aiResponse = await integration.sendToN8n(payload);
+
+            removeTypingIndicator();
+            isTyping = false;
+
+            // 4. Show AI Response
+            if (aiResponse && aiResponse.output) {
+                // n8n Agents usually return { output: "text" }
+                addMessage(aiResponse.output, 'system');
+
+            } else if (aiResponse && typeof aiResponse === 'string') {
+                // Sometimes it returns raw string
+                addMessage(aiResponse, 'system');
+
+            } else if (aiResponse && aiResponse.text) {
+                // Or { text: "..." }
+                addMessage(aiResponse.text, 'system');
+
+            } else {
+                // Fallback if AI fails or format is weird
+                console.warn("AI Response format unknown:", aiResponse);
+                addMessage("Desculpe, tive um problema de conexão. Poderia repetir?", 'system');
+            }
         }
     }
 
@@ -180,10 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
         // Check if we haven't interacted yet
         if (step === 0 && chatBody.querySelectorAll('.message.user').length === 0) {
-            // Let's replace the default static message with the Name Question if it's the default one
             const firstMsg = chatBody.querySelector('.message.system');
-            if (firstMsg && firstMsg.innerHTML.includes("Como posso ajudar")) {
-                firstMsg.innerHTML = "Olá! Sou a IA do Bruno Viana.<br>Para um atendimento personalizado, <strong>qual é o seu nome?</strong>";
+            if (firstMsg && firstMsg.innerHTML.includes("Olá")) {
+                // Already set in HTML
+            } else {
+                // Force greeting if needed
             }
         }
     }, 500);

@@ -1,0 +1,16 @@
+Starting tests on https://brunovianabr.com.br/ at 2026-02-12T00:14:35.791Z
+Starting tests on https://brunovianabr.com.br/...
+
+Running: Teste 1: Consultoria
+Submitting form...
+✅ Success! Message: "Recebemos seu interesse! Entraremos em contato em breve."
+
+Running: Teste 2: Mentoria
+Submitting form...
+✅ Success! Message: "Recebemos seu interesse! Entraremos em contato em breve."
+
+Running: Teste 3: IA
+Submitting form...
+✅ Success! Message: "Recebemos seu interesse! Entraremos em contato em breve."
+
+All tests completed.

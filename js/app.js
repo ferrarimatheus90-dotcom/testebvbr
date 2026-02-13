@@ -9,8 +9,13 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-document.querySelectorAll('.pillar-card, .step-card, .about-content').forEach(el => {
-    el.classList.add('fade-in-section'); // Add CSS class for init state
+// Target all major content blocks for animation
+const animatedElements = document.querySelectorAll(
+    '.hero-content, .manifesto-text, .about-content, .about-visual, .section-header, .step-card, .pillar-card, .form-container, footer .container'
+);
+
+animatedElements.forEach(el => {
+    el.classList.add('fade-in-section');
     observer.observe(el);
 });
 
