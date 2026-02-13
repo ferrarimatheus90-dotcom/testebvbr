@@ -27,12 +27,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Integration Service
     class IntegrationService {
         constructor() {
-            // Consolidated workflow (Lead Scoring + Chat)
-            this.n8nWebhook = "https://agente-n8n.qy9sqv.easypanel.host/webhook/lp-bruno-viana";
+            // New dedicated Chat Workflow
+            this.n8nWebhook = "https://agente-n8n.qy9sqv.easypanel.host/webhook/chat-bruno-viana";
         }
 
-        async sendToN8n(data) {
-            console.log("Sending data to n8n:", data);
+        async sendToN8n(message, sessionId) {
+            console.log("Sending message to n8n:", message);
 
             try {
                 const response = await fetch(this.n8nWebhook, {
@@ -40,22 +40,21 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(data)
+                    // Send message and session ID if needed
+                    body: JSON.stringify({ message: message, sessionId: sessionId })
                 });
 
                 if (response.ok) {
                     const jsonResponse = await response.json();
-
-                    // Handle n8n array response
-                    const data = Array.isArray(jsonResponse) ? jsonResponse[0] : jsonResponse;
-                    return data; // Returns { output: "..." }
+                    // Basic handling for LangChain output (usually 'output' or 'text')
+                    return jsonResponse.output || jsonResponse.text || "Desculpe, não entendi.";
                 } else {
                     console.error(`HTTP Error: ${response.status}`);
-                    return null;
+                    return "Erro de conexão com o servidor.";
                 }
             } catch (error) {
                 console.error(`Connection Error:`, error);
-                return null;
+                return "Erro de conexão. Verifique sua internet.";
             }
         }
     }
@@ -63,23 +62,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const integration = new IntegrationService();
 
     let isTyping = false;
-    let userData = {};
-    let step = 0;
-
-    // --- Knowledge Base (Fallback & Instant Answers) ---
-    const knowledgeBase = {
-        default: "Posso te ajudar com dúvidas sobre <strong>Consultoria</strong>, <strong>Mentoria</strong>, <strong>Palestras</strong> ou <strong>Automação com IA</strong>. O que gostaria de saber?",
-        keywords: [
-            // Keep some local keywords for instant reaction if desired, 
-            // OR remove them to let everything go to AI. 
-            // Let's keep "contact" details locally for speed, but let AI handle the rest.
-        ]
-    };
+    // Generate a simple session ID
+    const sessionId = 'session-' + Math.random().toString(36).substr(2, 9);
 
     function addMessage(text, sender = 'system') {
         const msgDiv = document.createElement('div');
         msgDiv.classList.add('message', sender);
-        msgDiv.innerHTML = text; // Be careful with innerHTML in prod, but needed for bold tags here
+        // Security note: innerHTML used for bold formatting, ensure backend sanitizes if needed
+        msgDiv.innerHTML = text;
         chatBody.appendChild(msgDiv);
         scrollToBottom();
     }
@@ -103,35 +93,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners
-    function sendMessage() {
+    async function sendMessage() {
         const text = userInput.value.trim();
-        if (text) {
-            // Redirect to WhatsApp with the message
-            const phoneNumber = "5515991196556"; // Bruno Viana's number
-            const encodedMessage = encodeURIComponent(text);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-            // Open in new tab
-            window.open(whatsappUrl, '_blank');
-
-            // Clear input and added visual feedback
+        if (text && !isTyping) {
             userInput.value = '';
             addMessage(text, 'user');
-            setTimeout(() => {
-                addMessage("Redirecionando para o WhatsApp...", 'system');
-            }, 500);
+
+            isTyping = true;
+            addTypingIndicator();
+
+            // Send to n8n
+            const reply = await integration.sendToN8n(text, sessionId);
+
+            removeTypingIndicator();
+            addMessage(reply, 'system');
+            isTyping = false;
         }
     }
 
     // Initial Greeting
     setTimeout(() => {
         // Check if we haven't interacted yet
-        if (step === 0 && chatBody.querySelectorAll('.message.user').length === 0) {
-            const firstMsg = chatBody.querySelector('.message.system');
-            if (firstMsg && firstMsg.innerHTML.includes("Olá")) {
-                // Already set in HTML
-            } else {
-                // Force greeting if needed
+        if (chatBody.querySelectorAll('.message.user').length === 0) {
+            // Ensure Greeting is visible if not static in HTML
+            const systemMsgs = chatBody.querySelectorAll('.message.system');
+            if (systemMsgs.length === 0) {
+                addMessage("Olá! Sou a IA do Bruno Viana. Como posso ajudar você hoje?", "system");
             }
         }
     }, 500);

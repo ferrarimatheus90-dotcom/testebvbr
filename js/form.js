@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Success
                 formMessage.textContent = "Recebemos seu interesse! Entraremos em contato em breve.";
                 formMessage.classList.add('success');
+                formMessage.style.display = 'block'; // Ensure visibility
                 contactForm.reset();
             } else {
                 throw new Error('Erro no envio');
@@ -74,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Form Error:', error);
             formMessage.textContent = "Houve um erro ao enviar. Por favor, tente novamente ou chame no chat.";
             formMessage.classList.add('error');
+            formMessage.style.display = 'block'; // Ensure visibility
         } finally {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
