@@ -172,33 +172,44 @@
 /* Pillars Section */
 .pillars {
     padding: var(--spacing-xl) 0;
-    background: var(--bg-color); /* Matches theme background */
+    background: var(--bg-color);
+    /* Matches theme background */
 }
 
 .grid-pillars {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-lg); /* Consistent spacing */
+    gap: var(--spacing-md);
+    /* Consistent spacing */
 }
 
 @media (max-width: 1024px) {
     .grid-pillars {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
     }
 }
 
 @media (max-width: 768px) {
+    .pillars {
+        padding: var(--spacing-xl) 0;
+    }
+
     .grid-pillars {
-        grid-template-columns: 1fr; /* 1 column on mobile */
+        grid-template-columns: 1fr;
+        /* 1 column on mobile */
     }
 }
 
 .pillar-card {
     background: var(--surface-color);
     border: 1px solid var(--border-color);
-    padding: var(--spacing-lg); /* Adequate inner spacing */
-    border-radius: 8px; /* Consistent corner radius */
-    text-align: left; /* Improved readability */
+    padding: var(--spacing-lg);
+    /* Adequate inner spacing */
+    border-radius: 8px;
+    /* Consistent corner radius */
+    text-align: left;
+    /* Improved readability */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* Smooth hover effect transition */
     display: flex;
@@ -209,31 +220,39 @@
 }
 
 .pillar-card:hover {
-    transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Depth on hover */
-    border-color: var(--accent-color); /* Highlight border on hover */
+    transform: translateY(-5px);
+    /* Lift effect */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    /* Depth on hover */
+    border-color: var(--accent-color);
+    /* Highlight border on hover */
 }
 
 .pillar-card h3 {
     margin-top: var(--spacing-md);
     margin-bottom: var(--spacing-sm);
     font-family: var(--font-heading);
-    font-size: 1.25rem; /* Distinct heading size */
+    font-size: 1.25rem;
+    /* Distinct heading size */
     color: var(--text-primary);
 }
 
 .pillar-card p {
     color: var(--text-secondary);
-    font-size: 0.95rem; /* Readable body text */
+    font-size: 0.95rem;
+    /* Readable body text */
     margin-bottom: var(--spacing-md);
-    flex-grow: 1; /* Pushes list to the bottom if content varies */
+    flex-grow: 1;
+    /* Pushes list to the bottom if content varies */
 }
 
 .pillar-details {
-    list-style: none; /* Remove bullets */
+    list-style: none;
+    /* Remove bullets */
     padding: 0;
     margin: 0;
-    border-top: 1px solid var(--border-color); /* visual separation */
+    border-top: 1px solid var(--border-color);
+    /* visual separation */
     padding-top: var(--spacing-md);
 }
 
@@ -242,12 +261,14 @@
     color: var(--text-secondary);
     margin-bottom: var(--spacing-sm);
     position: relative;
-    padding-left: 1.2em; /* Space for custom bullet */
+    padding-left: 1.2em;
+    /* Space for custom bullet */
 }
 
 .pillar-details li::before {
     content: '•';
-    color: var(--accent-color); /* Accent colored bullet */
+    color: var(--accent-color);
+    /* Accent colored bullet */
     position: absolute;
     left: 0;
     font-weight: bold;

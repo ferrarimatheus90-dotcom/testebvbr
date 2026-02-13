@@ -45,7 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.ok) {
                     const jsonResponse = await response.json();
-                    return jsonResponse; // Expecting { output: "AI response" } or similar from n8n Agent
+
+                    // Handle n8n array response
+                    const data = Array.isArray(jsonResponse) ? jsonResponse[0] : jsonResponse;
+                    return data; // Returns { output: "..." }
                 } else {
                     console.error(`HTTP Error: ${response.status}`);
                     return null;
@@ -157,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Fallback if AI fails or format is weird
                 console.warn("AI Response format unknown:", aiResponse);
-                addMessage("Desculpe, tive um problema de conexão. Poderia repetir?", 'system');
+                addMessage("Desculpe, tive um problema de conexão com a IA.", 'system');
             }
         }
     }
