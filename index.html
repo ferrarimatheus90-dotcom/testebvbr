@@ -17,8 +17,8 @@
 
     <!-- Styles -->
     <!-- Styles -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/main.css?v=1.2">
+    <link rel="stylesheet" href="css/form.css?v=1.2">
 
     <!-- GSAP for Animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -261,65 +261,62 @@
 
 
 
-
         <!-- Styles for Chat -->
-        <link rel="stylesheet" href="css/chat-floating.css">
+        <link rel="stylesheet" href="css/chat-floating.css?v=1.2">
 
-    </main>
-
-    <!-- Floating Chat Widget Container -->
-    <div id="bruno-chat-widget">
-        <!-- Chat Window (Hidden by default) -->
-        <div id="bruno-chat-window" class="chat-window">
-            <div class="chat-header">
-                <div class="header-info">
-                    <div class="avatar-circle">
-                        <span class="avatar-emoji">🤖</span>
+        <!-- Floating Chat Widget Container -->
+        <div id="bruno-chat-widget">
+            <!-- Chat Window (Hidden by default) -->
+            <div id="bruno-chat-window" class="chat-window">
+                <div class="chat-header">
+                    <div class="header-info">
+                        <div class="avatar-circle">
+                            <span class="avatar-emoji">🤖</span>
+                        </div>
+                        <div class="header-text">
+                            <span class="bot-name">Agente de IA</span>
+                            <span class="bot-status">Online agora</span>
+                        </div>
                     </div>
-                    <div class="header-text">
-                        <span class="bot-name">Agente de IA</span>
-                        <span class="bot-status">Online agora</span>
+                    <button id="close-chat-btn" class="close-btn">&times;</button>
+                </div>
+
+                <div class="chat-body" id="chat-body">
+                    <div class="message system">
+                        Olá! Sou a IA do Bruno Viana.
+                        <br>Para um atendimento personalizado, <strong>qual é o seu nome?</strong>
                     </div>
                 </div>
-                <button id="close-chat-btn" class="close-btn">&times;</button>
-            </div>
 
-            <div class="chat-body" id="chat-body">
-                <div class="message system">
-                    Olá! Sou a IA do Bruno Viana.
-                    <br>Para um atendimento personalizado, <strong>qual é o seu nome?</strong>
+                <div class="chat-input-area">
+                    <input type="text" id="userInput" placeholder="Digite sua resposta..." autocomplete="off">
+                    <button id="sendBtn" class="btn-send">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+                        </svg>
+                    </button>
                 </div>
             </div>
 
-            <div class="chat-input-area">
-                <input type="text" id="userInput" placeholder="Digite sua resposta..." autocomplete="off">
-                <button id="sendBtn" class="btn-send">
-                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                        <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
-                    </svg>
-                </button>
+            <!-- Floating Toggle Button -->
+            <button id="bruno-chat-toggle" class="chat-toggle-btn">
+                <span class="toggle-icon">💬</span>
+                <span class="toggle-text">Dúvidas?</span>
+            </button>
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2026 Bruno Viana. Todos os direitos reservados.</p>
             </div>
-        </div>
+        </footer>
 
-        <!-- Floating Toggle Button -->
-        <button id="bruno-chat-toggle" class="chat-toggle-btn">
-            <span class="toggle-icon">💬</span>
-            <span class="toggle-text">Dúvidas?</span>
-        </button>
-    </div>
-
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Bruno Viana. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <div id="particles-js" class="global-bg-effect"></div>
-    <script src="js/particles.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/chat-floating.js"></script>
-    <script src="js/form.js"></script>
-    <!-- <script src="js/integrations.js"></script> Integrated into app.js -->
+        <div id="particles-js" class="global-bg-effect"></div>
+        <script src="js/particles.js?v=1.2"></script>
+        <script src="js/app.js?v=1.2"></script>
+        <script src="js/chat-floating.js?v=1.2"></script>
+        <script src="js/form.js?v=1.2"></script>
+        <!-- <script src="js/integrations.js"></script> Integrated into app.js -->
 </body>
 
 </html>
