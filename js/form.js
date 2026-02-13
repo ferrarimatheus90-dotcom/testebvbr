@@ -44,10 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const data = {
-            name: formData.get('name'),
-            contact: formData.get('contact'),
-            company: formData.get('company'),
-            interest: interestVal,
+            nome: formData.get('name'),
+            email: formData.get('email'),
+            whatsapp: formData.get('whatsapp'),
+            empresa: formData.get('company'),
+            dificuldades: formData.get('challenges'),
+            interesse_principal: interestVal,
             source: 'static_form' // To distinguish from chat
         };
 
