@@ -23,7 +23,38 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const n8nWebhook = "https://agente-n8n.qy9sqv.easypanel.host/webhook/lp-bruno-viana";
+    const n8nWebhook = "https://agente-n8n.qy9sqv.easypanel.host/webhook/form-submit-final";
+
+    // Helper function for retrying requests
+    async function sendDataWithRetry(url, data, maxRetries = 3) {
+        let attempt = 0;
+        while (attempt < maxRetries) {
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                return response; // Success
+
+            } catch (error) {
+                attempt++;
+                console.warn(`Attempt ${attempt} failed:`, error);
+
+                if (attempt >= maxRetries) {
+                    throw error; // All attempts failed
+                }
+
+                // Update button text to show retry status
+                submitBtn.innerHTML = `Tentando novamente (${attempt}/${maxRetries})...`;
+
+                // Wait 2 seconds before retrying
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            }
+        }
+    }
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -54,28 +85,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch(n8nWebhook, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
+            // Use the retry helper
+            await sendDataWithRetry(n8nWebhook, data);
 
-            if (response.ok) {
-                // Success
-                formMessage.textContent = "Recebemos seu interesse! Entraremos em contato em breve.";
-                formMessage.classList.add('success');
-                formMessage.style.display = 'block'; // Ensure visibility
-                contactForm.reset();
-            } else {
-                throw new Error('Erro no envio');
-            }
+            // Success
+            formMessage.textContent = "Obrigado pelo contato! Sua mensagem foi enviada com sucesso para nossa equipe.";
+            formMessage.classList.add('success');
+            formMessage.style.display = 'block';
+            contactForm.reset();
+
         } catch (error) {
-            console.error('Form Error:', error);
-            formMessage.textContent = "Houve um erro ao enviar. Por favor, tente novamente ou chame no chat.";
+            console.error('Form Final Error:', error);
+            formMessage.textContent = "Não foi possível enviar sua mensagem após várias tentativas. Por favor, verifique sua conexão ou chame no WhatsApp.";
             formMessage.classList.add('error');
-            formMessage.style.display = 'block'; // Ensure visibility
+            formMessage.style.display = 'block';
         } finally {
             submitBtn.innerHTML = originalBtnText;
             submitBtn.disabled = false;
