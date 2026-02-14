@@ -1,5 +1,6 @@
 
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Form Script Loaded v2.0-fix");
     const contactForm = document.getElementById('interest-form');
     const formMessage = document.getElementById('form-message');
     const submitBtn = document.getElementById('form-submit-btn');
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        console.log("Form submission intercepted");
 
         // Lockdown button
         const originalBtnText = submitBtn.innerHTML;
