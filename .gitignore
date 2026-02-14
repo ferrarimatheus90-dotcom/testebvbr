@@ -2,3 +2,14 @@ wordpress-theme/
 wordpress-plugins/
 wordpress-dist/
 *.zip
+
+# Test scripts
+check_deployment.js
+test_cors.js
+test_form_cors.js
+test_form_get.js
+test_form_submit.js
+test_n8n.js
+test_n8n_fixed.js
+test_persona.js
+validation_output.txt
